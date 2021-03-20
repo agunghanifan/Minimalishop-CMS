@@ -22,6 +22,14 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Add-product.vue')
+  },
+  {
+    path: '/editProduct/:id',
+    name: 'EditProduct',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/Edit-product.vue')
   }
 ]
 
@@ -41,6 +49,13 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
+  // } else if (localStorage.access_token) {
+  //   if (to.name === 'Login') {
+  //     next({ name: 'Dashboard' })
+  //   } else {
+  //     next()
+  //   }
+  // }
 })
 
 export default router

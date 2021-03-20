@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     access_token: '',
     products: [],
-    categories: []
+    categories: [],
+    displayDataEdit: []
   },
   mutations: {
     insAccessToken (state, payload) {
@@ -26,6 +27,10 @@ export default new Vuex.Store({
     },
     categoriesToMutations (state, payload) {
       state.categories = payload
+    },
+    showEditData (state, payload) {
+      state.displayDataEdit = payload
+      router.push(`/editProduct/${payload.id}`)
     }
   },
   actions: {
@@ -90,9 +95,59 @@ export default new Vuex.Store({
           CategoryId: payload.CategoryId
         }
       })
-        .then(res => {
-          console.log(res)
+        .then(() => {
           router.push('/dashboard')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    editData (context, payload) {
+      axios({
+        url: baseUrl + `/product/${payload}`,
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('showEditData', data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    editDataSubmit (context, payload) {
+      axios({
+        url: baseUrl + `/product/${payload.id}`,
+        method: 'put',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          name: payload.name,
+          image_url: payload.image_url,
+          price: +payload.price,
+          stock: +payload.stock,
+          CategoryId: +payload.CategoryId
+        }
+      })
+        .then((res) => {
+          router.push('/dashboard')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteData (context, payload) {
+      axios({
+        url: baseUrl + `/product/${payload}`,
+        method: 'delete',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(() => {
         })
         .catch(err => {
           console.log(err)

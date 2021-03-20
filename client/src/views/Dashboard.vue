@@ -6,7 +6,7 @@
         <h1>Welcome</h1>
       </div>
         <div class="mt-5">
-        <Table />
+        <Table class="overflow-auto" style="width: 100rem; height: 30vw"/>
         </div>
     </div>
   </div>
@@ -20,10 +20,11 @@ export default {
   components: {
     Navbar,
     Table
+  },
+  created () {
   }
 }
 </script>
 
 <style scoped>
-
 </style>

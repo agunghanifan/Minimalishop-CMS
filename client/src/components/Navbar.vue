@@ -21,12 +21,12 @@
               >Add Product<span class="sr-only">(current)</span></router-link
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <router-link class="nav-link" to="/banner"
               >Get Banner<span class="sr-only">(current)</span></router-link
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <router-link class="nav-link" to="/addCategory"
               >Add Category<span class="sr-only">(current)</span></router-link
             >
@@ -57,4 +57,7 @@ export default {
 </script>
 
 <style scoped>
+.navbar {
+  background-color: #F5F5F5;
+}
 </style>

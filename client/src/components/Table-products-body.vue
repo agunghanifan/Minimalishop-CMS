@@ -5,12 +5,21 @@
     <td class="">{{productFromTable.price}}</td>
     <td class="">{{productFromTable.stock}}</td>
     <td class="">{{productFromTable.Category.name}}</td>
-    <td class=""><button class="btn btn-warning">Edit</button> <button class="btn btn-danger">Delete</button> </td>
+    <td class=""><button @click.prevent="editProduct(productFromTable.id)" class="btn btn-warning">Edit</button> <button @click.prevent="deleteProduct(productFromTable.id)" class="btn btn-danger">Delete</button> </td>
   </tr>
 </template>
 
 <script>
 export default {
+  methods: {
+    editProduct (id) {
+      this.$store.dispatch('editData', id)
+    },
+    deleteProduct (id) {
+      this.$store.dispatch('deleteData', id)
+      this.$store.dispatch('fetchDataVuex')
+    }
+  },
   props: [
     'productFromTable'
   ]

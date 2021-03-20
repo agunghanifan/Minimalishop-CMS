@@ -44,12 +44,19 @@ export default {
         password: this.password
       }
       this.$store.dispatch('login', data)
+      this.email = ''
+      this.password = ''
     }
   },
   computed: {
+  },
+  created () {
   }
 }
 </script>
 
 <style>
+body {
+  font-family: 'Vollkorn', serif;
+}
 </style>

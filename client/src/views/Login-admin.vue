@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <h1>Login Page</h1>
+      <div v-if="findErrors.length > 0" class="alert alert-danger" role="alert">
+        {{ findErrors }}
+      </div>
     <form>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -30,6 +33,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -49,6 +54,9 @@ export default {
     }
   },
   computed: {
+    ...mapState([
+      'findErrors'
+    ])
   },
   created () {
   }

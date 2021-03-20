@@ -2,35 +2,34 @@
   <div class="container">
     <table class="table table-striped table-hover">
       <thead>
-        <tr>
-          <th scope="col" class="text-center">Name</th>
+        <tr class="align-self-center">
+          <th scope="col" class="text-center">Title</th>
+          <th scope="col" class="text-center">Status</th>
           <th scope="col" class="text-center">Image</th>
           <th scope="col" class="text-center">Category</th>
-          <th scope="col" class="text-center">Price</th>
-          <th scope="col" class="text-center">Stock</th>
           <th scope="col" class="text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tbodyData v-for="(product, id) in products" :key="id" :productFromTable="product"></tbodyData>
+        <tbodyData v-for="(banner, id) in banners" :key="id" :bannerFromTable="banner"></tbodyData>
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
-import tbodyData from '../components/Table-products-body'
+import tbodyData from '../components/Table-banner-body'
 import { mapState } from 'vuex'
 
 export default {
   methods: {
     fetchData () {
-      this.$store.dispatch('fetchDataVuex')
+      this.$store.dispatch('fetchDataBannerVuex')
     }
   },
   computed: {
     ...mapState([
-      'products'
+      'banners'
     ])
   },
   components: {

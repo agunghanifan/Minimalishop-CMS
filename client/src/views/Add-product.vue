@@ -4,6 +4,11 @@
     <div class="container mt-5">
       <h1>Add new Product</h1>
     </div>
+    <div v-if="findErrors.length > 0">
+      <div v-for="(error, id) in findErrors" :key="id" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
+    </div>
     <div class="container">
       <form @submit.prevent="addNewProduct">
         <div class="mb-3">
@@ -13,7 +18,7 @@
         </div>
         <div class="mb-3">
           <label for="imageurl" class="form-label">Image URL of the Product's</label>
-          <input type="text" class="form-control" id="imageurl" aria-describedby="imageHelp" placeholder="Drop your link image in here" v-model="image_url">
+          <input type="url" class="form-control" id="imageurl" aria-describedby="imageHelp" placeholder="Drop your link image in here" v-model="image_url">
           <div id="imageHelp" class="form-text">Make sure that link you put on the box is active</div>
         </div>
         <div class="mb-3">
@@ -73,7 +78,7 @@ export default {
   },
   computed: {
     ...mapState([
-      'categories'
+      'categories', 'findErrors'
     ])
   },
   created () {

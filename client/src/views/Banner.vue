@@ -6,10 +6,10 @@
         <h1 class="text-center">Welcome</h1>
       </div>
       <div class="d-flex justify-content-center">
-        <button class="btn btn-secondary mb-3" @click.prevent="toAddPages">Add Product</button>
+        <button class="btn btn-secondary mb-3" @click.prevent="toAddBannerPages">Add Banner</button>
       </div>
-        <div class="">
-        <Table class="overflow-auto" style="width: 100rem; height: 35vw"/>
+        <div class="container-fluid">
+        <Table class="overflow-auto" style="width: 5000px; height: 700px"/>
         </div>
     </div>
   </div>
@@ -17,7 +17,7 @@
 
 <script>
 import Navbar from '../components/Navbar'
-import Table from '../components/Table-products'
+import Table from '../components/Table-banner'
 
 export default {
   components: {
@@ -25,8 +25,8 @@ export default {
     Table
   },
   methods: {
-    toAddPages () {
-      this.$store.commit('toAddPage')
+    toAddBannerPages () {
+      this.$store.commit('toAddBannerPage')
     }
   },
   created () {

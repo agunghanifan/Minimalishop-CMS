@@ -26,11 +26,34 @@ const routes = [
   {
     path: '/editProduct/:id',
     name: 'EditProduct',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/Edit-product.vue')
+  },
+  {
+    path: '/addCategory',
+    name: 'AddCategory',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Add-category.vue')
+  },
+  {
+    path: '/banner',
+    name: 'Banner',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Banner.vue')
+  },
+  {
+    path: '/addBanner',
+    name: 'addBanner',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Add-banner.vue')
+  },
+  {
+    path: '/editBanner/:id',
+    name: 'EditBanner',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Edit-banner.vue')
+  },
+  {
+    path: '*',
+    name: 'PageNotFound',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Notfound.vue')
   }
+
 ]
 
 const router = new VueRouter({
@@ -49,13 +72,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  // } else if (localStorage.access_token) {
-  //   if (to.name === 'Login') {
-  //     next({ name: 'Dashboard' })
-  //   } else {
-  //     next()
-  //   }
-  // }
 })
 
 export default router

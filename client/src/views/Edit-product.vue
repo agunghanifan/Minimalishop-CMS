@@ -1,8 +1,14 @@
 <template>
   <div>
     <Navbar/>
+    <router-view :key="$route.fullPath"></router-view>
     <div class="container mt-5">
       <h1>Edit Product</h1>
+    </div>
+    <div v-if="findErrors.length > 0">
+      <div v-for="(error, id) in findErrors" :key="id" class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
     </div>
     <div class="container">
       <form @submit.prevent="editProductSubmit">
@@ -13,7 +19,7 @@
         </div>
         <div class="mb-3">
           <label for="imageurl" class="form-label">Image URL of the Product's</label>
-          <input type="text" class="form-control" id="imageurl" aria-describedby="imageHelp" placeholder="Drop your link image in here" v-model="image_url">
+          <input type="url" class="form-control" id="imageurl" aria-describedby="imageHelp" placeholder="Drop your link image in here" v-model="image_url">
           <div id="imageHelp" class="form-text">Make sure that link you put on the box is active</div>
         </div>
         <div class="mb-3">
@@ -54,7 +60,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['displayDataEdit', 'categories'])
+    ...mapState(['displayDataEdit', 'categories', 'findErrors', 'reFetch', 'products'])
   },
   methods: {
     fetchCategories () {
@@ -79,11 +85,32 @@ export default {
       }
       // console.log(data)
       this.$store.dispatch('editDataSubmit', data)
+      const timing = setInterval(() => {
+        this.isFetchNeeded()
+        clearInterval(timing)
+      }, 500)
+    },
+    isFetchNeeded () {
+      if (this.reFetch) {
+        this.showToPage()
+      }
+    },
+    isParamsRoutesRight () {
+      let routesFound = false
+      this.products.forEach((product) => {
+        if (product.id === +this.$route.params.id) {
+          routesFound = true
+        }
+      })
+      if (!routesFound) {
+        this.$router.push('/404-not-found')
+      }
     }
   },
   created () {
     this.fetchCategories()
     this.showToPage()
+    this.isParamsRoutesRight()
   },
   components: {
     Navbar

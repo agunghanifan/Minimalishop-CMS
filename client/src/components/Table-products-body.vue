@@ -1,11 +1,11 @@
 <template>
   <tr class="align-self-center">
-    <td class="">{{productFromTable.name}}</td>
-    <td class=""><img :src="productFromTable.image_url" class="rounded mx-auto d-block" alt="product"></td>
-    <td class="">{{productFromTable.price}}</td>
-    <td class="">{{productFromTable.stock}}</td>
-    <td class="">{{productFromTable.Category.name}}</td>
-    <td class=""><button @click.prevent="editProduct(productFromTable.id)" class="btn btn-warning">Edit</button> <button @click.prevent="deleteProduct(productFromTable.id)" class="btn btn-danger">Delete</button> </td>
+    <td class="text-center">{{productFromTable.name}}</td>
+    <td class="text-center"><img :src="productFromTable.image_url" class="rounded mx-auto d-block" alt="product"></td>
+    <td class="text-center">{{productFromTable.price}}</td>
+    <td class="text-center">{{productFromTable.stock}}</td>
+    <td class="text-center">{{productFromTable.Category.name}}</td>
+    <td class="text-center"><button @click.prevent="editProduct(productFromTable.id)" class="btn btn-warning">Edit</button> <button @click.prevent="deleteProduct(productFromTable.id)" class="btn btn-danger">Delete</button> </td>
   </tr>
 </template>
 
@@ -17,8 +17,13 @@ export default {
     },
     deleteProduct (id) {
       this.$store.dispatch('deleteData', id)
-      this.$store.dispatch('fetchDataVuex')
+      const timing = setInterval(() => {
+        this.$store.dispatch('fetchDataVuex')
+        clearInterval(timing)
+      }, 3000)
     }
+  },
+  computed: {
   },
   props: [
     'productFromTable'

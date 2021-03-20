@@ -11,7 +11,11 @@ export default new Vuex.Store({
     access_token: '',
     products: [],
     categories: [],
-    displayDataEdit: []
+    displayDataEdit: [],
+    banners: [],
+    displayEditBanner: [],
+    findErrors: [],
+    reFetch: false
   },
   mutations: {
     insAccessToken (state, payload) {
@@ -31,6 +35,29 @@ export default new Vuex.Store({
     showEditData (state, payload) {
       state.displayDataEdit = payload
       router.push(`/editProduct/${payload.id}`)
+    },
+    toAddPage (state, payload) {
+      router.push('/addProduct')
+    },
+    fetchDatabanner (state, payload) {
+      state.banners = payload
+    },
+    toAddBannerPage (state, payload) {
+      router.push('/addBanner')
+    },
+    showEditBanner (state, payload) {
+      state.displayEditBanner = payload
+      router.push(`/editBanner/${payload.id}`)
+    },
+    showErrors (state, payload) {
+      state.findErrors = payload
+      const timing = setInterval(() => {
+        state.findErrors = []
+        clearInterval(timing)
+      }, 3000)
+    },
+    refetchProductEdit (state, payload) {
+      state.reFetch = true
     }
   },
   actions: {
@@ -46,8 +73,8 @@ export default new Vuex.Store({
         .then(({ data }) => {
           context.commit('insAccessToken', { access_token: data.access_token })
         })
-        .catch(err => {
-          console.log(err)
+        .catch((err) => {
+          context.commit('showErrors', err.response.data.message)
         })
     },
     fetchDataVuex (context) {
@@ -62,7 +89,7 @@ export default new Vuex.Store({
           context.commit('productsToMutations', res.data)
         })
         .catch(err => {
-          console.log(err)
+          context.commit('showErrors', err.response.data.message)
         })
     },
     fetchCategoriesVuex (context) {
@@ -77,7 +104,7 @@ export default new Vuex.Store({
           context.commit('categoriesToMutations', res.data)
         })
         .catch(err => {
-          console.log(err)
+          context.commit('showErrors', err.response.data.message)
         })
     },
     addProduct (context, payload) {
@@ -99,7 +126,7 @@ export default new Vuex.Store({
           router.push('/dashboard')
         })
         .catch(err => {
-          console.log(err)
+          context.commit('showErrors', err.response.data.message)
         })
     },
     editData (context, payload) {
@@ -114,7 +141,7 @@ export default new Vuex.Store({
           context.commit('showEditData', data)
         })
         .catch((err) => {
-          console.log(err)
+          context.commit('showErrors', err.response.data.message)
         })
     },
     editDataSubmit (context, payload) {
@@ -136,7 +163,8 @@ export default new Vuex.Store({
           router.push('/dashboard')
         })
         .catch(err => {
-          console.log(err)
+          context.commit('refetchProductEdit')
+          context.commit('showErrors', err.response.data.message)
         })
     },
     deleteData (context, payload) {
@@ -150,9 +178,115 @@ export default new Vuex.Store({
         .then(() => {
         })
         .catch(err => {
-          console.log(err)
+          context.commit('showErrors', err.response.data.message)
+        })
+    },
+    addCategory (context, payload) {
+      axios({
+        url: baseUrl + '/addCategory',
+        method: 'post',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          name: payload.name
+        }
+      })
+        .then((res) => {
+          router.push('/dashboard')
+        })
+        .catch(err => {
+          context.commit('showErrors', err.response.data.message)
+        })
+    },
+    fetchDataBannerVuex (context, payload) {
+      axios({
+        url: baseUrl + '/banners',
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('fetchDatabanner', data)
+        })
+        .catch(err => {
+          context.commit('showErrors', err.response.data.message)
+        })
+    },
+    addBanner (context, payload) {
+      axios({
+        url: baseUrl + '/addBanner',
+        method: 'post',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          title: payload.title,
+          status: payload.status,
+          image_url: payload.image_url,
+          CategoryId: payload.CategoryId
+        }
+      })
+        .then(({ data }) => {
+          router.push('/banner')
+        })
+        .catch((err) => {
+          context.commit('showErrors', err.response.data.message)
+        })
+    },
+    editDataBanner (context, payload) {
+      axios({
+        url: baseUrl + `/banner/${payload}`,
+        method: 'get',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(({ data }) => {
+          context.commit('showEditBanner', data)
+        })
+        .catch((err) => {
+          context.commit('showErrors', err.response.data.message)
+        })
+    },
+    editBannerSubmit (context, payload) {
+      axios({
+        url: baseUrl + `/banner/${payload.id}`,
+        method: 'put',
+        headers: {
+          access_token: localStorage.access_token
+        },
+        data: {
+          id: payload.id,
+          title: payload.title,
+          image_url: payload.image_url,
+          status: payload.status,
+          CategoryId: payload.CategoryId
+        }
+      })
+        .then(({ data }) => {
+          router.push('/banner')
+        })
+        .catch((err) => {
+          context.commit('showErrors', err.response.data.message)
+        })
+    },
+    deleteDataBanner (context, payload) {
+      axios({
+        url: baseUrl + `/banner/${payload}`,
+        method: 'delete',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(() => {
+        })
+        .catch((err) => {
+          context.commit('showErrors', err.response.data.message)
         })
     }
+
   },
   modules: {
   }

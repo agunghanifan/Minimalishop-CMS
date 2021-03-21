@@ -4,7 +4,8 @@ import axios from 'axios'
 import router from '../router'
 
 Vue.use(Vuex)
-const baseUrl = 'http://localhost:3000'
+// const baseUrl = 'http://localhost:3000'
+const baseUrl = 'https://cms-ecommerce-agungs.herokuapp.com'
 
 export default new Vuex.Store({
   state: {
@@ -284,6 +285,34 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           context.commit('showErrors', err.response.data.message)
+        })
+    },
+    addAmountData (context, payload) {
+      axios({
+        url: baseUrl + `/product/${payload}/plus`,
+        method: 'patch',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(() => {
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    reduceAmountData (context, payload) {
+      axios({
+        url: baseUrl + `/product/${payload}/minus`,
+        method: 'patch',
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+        .then(() => {
+        })
+        .catch((err) => {
+          console.log(err)
         })
     }
 

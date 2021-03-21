@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <Navbar/>
     <div class="container mt-5">
       <h1>Add new Banner</h1>
@@ -38,7 +38,7 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -82,6 +82,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>

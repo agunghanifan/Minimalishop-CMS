@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <table class="table table-striped table-hover">
-      <thead>
+      <thead class="table-light">
         <tr>
           <th scope="col" class="text-center">Name</th>
           <th scope="col" class="text-center">Image</th>

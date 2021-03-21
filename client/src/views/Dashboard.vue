@@ -3,7 +3,7 @@
     <Navbar></Navbar>
     <div>
       <div class="mt-5">
-        <h1 class="text-center">Welcome</h1>
+        <h1 class="text-center" style="color: white">Welcome to Production Control</h1>
       </div>
       <div class="d-flex justify-content-center">
         <button class="btn btn-secondary mb-3" @click.prevent="toAddPages">Add Product</button>
@@ -35,5 +35,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

@@ -1,9 +1,31 @@
 <template>
-  <div class="container">
-    <h1>Login Page</h1>
-      <div v-if="findErrors.length > 0" class="alert alert-danger" role="alert">
-        {{ findErrors }}
+<section id="login">
+    <div class="container-fluid d-flex" style="height: 100vh">
+      <div class="d-flex align-items-center justify-content-center w-25 mx-auto mt-5">
+        <div class="row" style="margin-top: 10px;">
+          <div v-if="findErrors.length > 0" class="row align-self-center alert alert-danger" style="margin-left: 125px;" role="alert">
+            {{ findErrors }}
+          </div>
+          <h1 class=" ml-4 mb-5 align-self-center" style="color: white;">Login to Ecommerce CMS</h1>
+          <form @submit.prevent="login" class="col align-self-center">
+            <div class="mb-3">
+              <label for="email" class="form-label" style="color: white;">Email</label>
+              <input type="email" class="form-control" id="email" v-model="email">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label" style="color: white;">Password</label>
+              <input type="password" class="form-control" id="password" v-model="password">
+            </div>
+            <div class="mb-3">
+              <button type="submit" class="btn btn-warning w-100" style="font-family: 'Poppins', sans-serif">Login</button>
+            </div>
+          </form>
+        </div>
       </div>
+    </div>
+  </section>
+  <!-- <div class="container">
+    <h1>Login Page</h1>
     <form>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -29,7 +51,7 @@
       </div>
       <button @click.prevent="login" type="submit" class="btn btn-primary">Submit</button>
     </form>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -66,5 +88,8 @@ export default {
 <style>
 body {
   font-family: 'Vollkorn', serif;
+}
+.container-fluid {
+  position: relative;
 }
 </style>

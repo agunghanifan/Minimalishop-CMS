@@ -42,4 +42,7 @@ export default {
 </script>
 
 <style scoped>
+th {
+  color: white;
+}
 </style>
